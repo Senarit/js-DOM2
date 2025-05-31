@@ -12,5 +12,13 @@
     "http-server": "^14.1.1",
     "live-server": "^1.2.2"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Senarit/js-DOM2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Senarit/js-DOM2/issues"
+  },
+  "homepage": "https://github.com/Senarit/js-DOM2#readme",
   "description": ""
 }

@@ -1,23 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Галерея зображень</title>
 </head>
 <body>
-    <h1>Галерея картинок</h1>
-  
-  <div class="gallery" id="gallery"></div>
-  
-  <div class="buttons">
-    <button id="loadMoreBtn">Завантажити ще 4 картинки</button>
-    <button id="clearGalleryBtn">Очистити галерею</button>
-    <button id="removeLastImageBtn">Видалити останню картинку</button>
-    <button id="reverseGalleryBtn">Перевернути галерею</button>
-  </div>
-  
-    <script src="script.js"></script>
+
+<h1>Галерея зображень</h1>
+<div class="gallery" id="gallery"></div>
+<div class="buttons">
+  <button onclick="loadMoreImages()">Завантажити ще 4 картинки</button>
+  <button onclick="clearGallery()">Очистити галерею</button>
+  <button onclick="removeLastImage()">Видалити останню картинку</button>
+  <button onclick="reverseGallery()">Перевернути галерею</button>
+</div>
+
+<script type="module" src="../modules/gallery.js"></script>
+
 </body>
 </html>

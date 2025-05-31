@@ -1,55 +1,52 @@
+let currentPage = 1;
+  const gallery = document.getElementById('gallery');
+  let loadedImages = [];
 
-const galleryContainer = document.getElementById('gallery');
-const loadMoreBtn = document.getElementById('loadMoreBtn');
-const clearGalleryBtn = document.getElementById('clearGalleryBtn');
-const removeLastImageBtn = document.getElementById('removeLastImageBtn');
-const reverseGalleryBtn = document.getElementById('reverseGalleryBtn');
-
-let images = [];
-let page = 1; 
-
-async function fetchImages() {
-  try {
-    const response = await fetch(`https://picsum.photos/v2/list?page=${page}&limit=4`);
-    const data = await response.json();
-    
-    images = [...images, ...data];
-    page++; 
-    renderGallery(); 
-  } catch (error) {
-    console.error('Помилка при завантаженні картинок:', error);
+  
+  async function loadImages() {
+    try {
+      const response = await fetch(`https://picsum.photos/v2/list?page=${currentPage}&limit=4`);
+      const images = await response.json();
+      loadedImages.push(...images);
+      renderImages();
+      currentPage++;
+    } catch (error) {
+      console.error('Помилка завантаження зображень:', error);
+    }
   }
-}
 
-function renderGallery() {
-  galleryContainer.innerHTML = ''; 
+  function renderImages() {
+    gallery.innerHTML = '';
+    loadedImages.forEach(image => {
+      const imgElement = document.createElement('img');
+      imgElement.src = `${image.download_url}`;
+      imgElement.alt = `Image by ${image.author}`;
+      gallery.appendChild(imgElement);
+    });
+  }
 
-  images.forEach(image => {
-    const imgElement = document.createElement('img');
-    imgElement.src = image.download_url;
-    imgElement.alt = image.author;
-    imgElement.title = image.author;
+  
+  function loadMoreImages() {
+    loadImages();
+  }
 
-    galleryContainer.appendChild(imgElement);
-  });
-}
 
-fetchImages();
+  function clearGallery() {
+    loadedImages = [];
+    renderImages();
+  }
 
-loadMoreBtn.addEventListener('click', fetchImages);
+ 
+  function removeLastImage() {
+    if (loadedImages.length > 0) {
+      loadedImages.pop();
+      renderImages();
+    }
+  }
 
-clearGalleryBtn.addEventListener('click', () => {
-  images = []; 
-  page = 1; 
-  renderGallery(); 
-});
+  function reverseGallery() {
+    loadedImages.reverse();
+    renderImages();
+  }
 
-removeLastImageBtn.addEventListener('click', () => {
-  images.pop(); 
-  renderGallery(); 
-});
-
-reverseGalleryBtn.addEventListener('click', () => {
-  images.reverse(); 
-  renderGallery(); 
-});
+  window.onload = loadImages;
